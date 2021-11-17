@@ -72,12 +72,12 @@ def parge_args():
 
     ##GPT ARGS
     parser.add_argument("--gpt_model_checkpoint", type=str, default="/home/cse/staff/shantan1.cstaff/scratch/transfer_transfero_flowchart/openai-gpt_proxy_data_in_domain_cache_BLEU_448773.782979751/", help="Path, url or short name of the model")#only for a starting point #calculated on the fly
-    parser.add_argument("--model", type=str, default="openai-gpt", help="Model type (openai-gpt or gpt2)", choices=['openai-gpt', 'gpt2'])  # anything besides gpt2 will load openai-gpt
+    parser.add_argument("--model", type=str, default="gpt2", help="Model type (openai-gpt or gpt2)", choices=['openai-gpt', 'gpt2'])  # anything besides gpt2 will load openai-gpt
     #CHANGES IN GPT2
-    parser.add_argument("--max_history", type=int, default=8, help="Number of previous exchanges to keep in history")
-    parser.add_argument("--max_input_length", type=int, default=510, help="length of acceptable input. 512 for transfertransfero and 1024 for gpt2")
-    parser.add_argument("--personality_length", type=int, default=190, help="length of acceptable flowchart input segment")
-    parser.add_argument("--history_length", type=int, default=300, help="length of acceptable history input segment")
+    parser.add_argument("--max_history", type=int, default=900, help="Number of previous exchanges to keep in history")
+    parser.add_argument("--max_input_length", type=int, default=900, help="length of acceptable input. 512 for transfertransfero and 1024 for gpt2")
+    parser.add_argument("--personality_length", type=int, default=200, help="length of acceptable flowchart input segment")
+    parser.add_argument("--history_length", type=int, default=600, help="length of acceptable history input segment")
     parser.add_argument("--gpt_batch_size", type=int, default=5, help="Batch size for training")
     #HYPERPARAMETERS-GPT
     parser.add_argument("--beam", type=int, default=5, help="Beam width")
