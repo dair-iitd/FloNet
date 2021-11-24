@@ -1,6 +1,8 @@
 # FLONET
 
 ## Running Inference
+[Download](https://drive.google.com/drive/folders/1oDCQ30DVMd0zWA0cwnSxPNaPIe2-neGj?usp=sharing) the pretrained checkpoints.
+
 Use below for S-Flo
 
 `python flonet.py --save-name='FlonetInferVal' --retriever_checkpoint=path/to/retriever/checkpoint.pth.tar  --gpt_model_checkpoint=path/to/generator/folder/ --dialog-dir='../data/dialogs/' --cached-dialog-path='../data/saved_data/cached_in_domain_hard_dialogs.pkl' --domain='in_domain_hard' --saved-glove-path=./glove6B/  --inference=1 --num-epochs=0 --max_length=60`
