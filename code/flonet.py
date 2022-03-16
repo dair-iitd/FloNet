@@ -37,10 +37,10 @@ def parge_args():
 
     parser.add_argument('--flowchart-dir', type=str, default='../data/flowcharts/', help='a directiory that contains all flowcharts')
     #change these depending on the dataset
-    parser.add_argument('--cached-dialog-path', type=str, default='../data/saved_data/cached_in_domain_dialogs_score_FAQ.pkl', help='cached dataset path')
-    parser.add_argument('--domain', type=str, default='in_domain', help='in_domain, out_domain')
+    parser.add_argument('--cached-dialog-path', type=str, default='../data/saved_data/cached_in_domain_hard_dialogs.pkl', help='cached dataset path')
+    parser.add_argument('--domain', type=str, default='in_domain_hard', help='in_domain_hard, out_domain')
     parser.add_argument('--save-name', type=str, default="Combined_test", help='Name of model to be saved')
-    parser.add_argument("--retriever_checkpoint", type=str, default="../data/model/Proxybest_checkpoint_ProxyScoreTop1_in_domain_300_0.001_16.pth.tar", help="Path, url or short name of the model")#only for a starting point #calculated on the fly
+    parser.add_argument("--retriever_checkpoint", type=str, default="", help="Path, url or short name of the model")#only for a starting point #calculated on the fly
     parser.add_argument('--dropout_type', type = int, default = 0 )
     parser.add_argument('--dropout_rate', type = int, default = 0 )
     parser.add_argument('--inference', type=int, default=0, help='0 if training, 1 if test')
@@ -71,7 +71,7 @@ def parge_args():
     parser.add_argument('--skip-emb-matrix-refresh', type=int, default=0)
 
     ##GPT ARGS
-    parser.add_argument("--gpt_model_checkpoint", type=str, default="/home/cse/staff/shantan1.cstaff/scratch/transfer_transfero_flowchart/openai-gpt_proxy_data_in_domain_cache_BLEU_448773.782979751/", help="Path, url or short name of the model")#only for a starting point #calculated on the fly
+    parser.add_argument("--gpt_model_checkpoint", type=str, default="", help="Path, url or short name of the model")#only for a starting point #calculated on the fly
     parser.add_argument("--model", type=str, default="gpt2", help="Model type (openai-gpt or gpt2)", choices=['openai-gpt', 'gpt2'])  # anything besides gpt2 will load openai-gpt
     #CHANGES IN GPT2
     parser.add_argument("--max_history", type=int, default=900, help="Number of previous exchanges to keep in history")
