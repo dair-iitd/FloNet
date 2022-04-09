@@ -1,4 +1,4 @@
-torch
+torch==1.6.0
 pytorch-ignite==0.3.0
 transformers==2.5.1
 tensorboardX==1.8
