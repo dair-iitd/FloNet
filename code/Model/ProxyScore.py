@@ -16,7 +16,6 @@ class ProxyScore(nn.Module):
     def __init__(self, args, glob):
         super(ProxyScore, self).__init__()
         self.margin = args.margin
-        self.use_transformer = args.use_transformer
         self.input_encoder = ProxyInputEncoder(args, glob)
         self.path_encoder = ProxyInputEncoder(args, glob)
         self.linear = nn.Linear(2*args.encoder_hidden_size,1,bias=False)
