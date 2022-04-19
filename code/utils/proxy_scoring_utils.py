@@ -310,5 +310,5 @@ def get_documents_from_flowchart2(flows,chart,docs):
         chart_contexts.append(d['q'].strip())
         chart_contexts_array.append([d['q'].strip()])
         chart_responses.append(d['a'].strip())
-        doc_response2node[len(chart_responses)-1]=inv_chart_response2node[chart+":"+d['node']]
+        doc_response2node[len(chart_responses)-1]=int(d['id'])
     return chart_contexts, chart_contexts_array, chart_responses, chart_response2node, doc_response2node

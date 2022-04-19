@@ -103,11 +103,14 @@ class ProxyScoreData(object):
                 response_vector_length, response_vector = vectorize_text(response_as_text, glob['decoder_vocab_to_idx'], glob['max_response_sent_length'])
 
                 #ground truth response
-                gt_response = flowcharts.get_node_text(flowchart_name,exchange[1]['node']) if exchange[1]['node'] !=None else ""
-                if 'FinalNode' in exchange[1] and exchange[1]['FinalNode']!=None and 'FAQ:' in exchange[1]['FinalNode']:
-                    #GT response is actually a FAQ node
-                    faq_id = exchange[1]['FinalNode'].split("FAQ:")[-1]
-                    gt_response = self.indexed_faqs[flowchart_name][faq_id]['a']
+                if 'node' not in exchange[1]:
+                    gt_response = '' #closing exchange, no need to calculate GT
+                else:
+                    gt_response = flowcharts.get_node_text(flowchart_name,exchange[1]['node']) if exchange[1]['node'] !=None else ""
+                    if 'FinalNode' in exchange[1] and exchange[1]['FinalNode']!=None and 'FAQ:' in exchange[1]['FinalNode']:
+                        #GT response is actually a FAQ node
+                        faq_id = exchange[1]['FinalNode'].split("FAQ:")[-1]
+                        gt_response = self.indexed_faqs[flowchart_name][faq_id]['a']
 
                 #######chart info
                 #flowchart context and response by idx
@@ -136,7 +139,7 @@ class ProxyScoreData(object):
                     self.score.append(score)
                     self._flowchart_names.append(flowchart_name)
                     self.batche_start.append(int(chart_idx==0))
-                    if test:
+                    if True:
                         self.gt_label.append(int(gt_response==chart_data['responses_text'][chart_idx]))
                     else:
                         if chart_data['paths_text'][chart_idx][0] in self.doc_q2node[flowchart_name]:
@@ -221,14 +224,14 @@ class ProxyScoreData(object):
         for chart, json in flowchartDocsJson.items():
             chart_q2node = {}
             for d in json['supporting_faqs']:
-                chart_q2node[d['q']]=d['node']
+                chart_q2node[d['q']]=d['id']
             doc_q2node[chart]=chart_q2node
         self.doc_q2node=doc_q2node
     
     def index_faqs(self, flowchartDocsJson):
         indexed_faqs = {}
         for chart, json in flowchartDocsJson.items():
-            indexed_faq = {v['ID']:v for v in json['supporting_faqs']}
+            indexed_faq = {v['id']:v for v in json['supporting_faqs']}
             indexed_faqs[chart]=indexed_faq
         self.indexed_faqs=indexed_faqs
 
