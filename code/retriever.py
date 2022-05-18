@@ -104,7 +104,6 @@ def parse_args():
     #args.saved_glove_path = args.saved_glove_path + "saved_embedding_matrix" + str(args.emb_size) +"_" + args.domain + "_dialogs_.pkl"
     
     #for siamese
-    args.encoder_vocab_size=len(glob['encoder_vocab_to_idx'])
     args.encoder_hidden_size=args.hidden_size
     args.encoder_bidirectional_flag=args.bidirectional_encoder
 
@@ -131,6 +130,7 @@ def load_data(args):
 
     glove_matrix_path, missed_idx_path = cache_embedding_matrix(glob,args.emb_size,args.saved_glove_path,args.domain+"_dialogs",args.cached_dialog_path)
     args.saved_glove_path = glove_matrix_path
+    args.encoder_vocab_size=len(glob['encoder_vocab_to_idx'])
     #  mask the values in vocab (and their embedding matrix indexes)
     #  that are not in the glove embedding matrix
     with open(missed_idx_path,'rb') as f:
@@ -144,7 +144,7 @@ def load_data(args):
     tst_batches = get_indexes_for_bleu(tstData.batche_start)
 
     print("loading dataset complete")
-    return trnData, valData, tstData, glob, trn_batches, val_batches, tst_batches, mask
+    return trnData, valData, tstData, glob, trn_batches, val_batches, tst_batches, mask, args
 
 def plot_and_save_loss(losses,args):
     plt.clf()
@@ -364,7 +364,7 @@ def create_output_entry(Data, glob, startIdx, endIdx, best_response, Test=False)
  
 args = parse_args()
 print(args)
-trnData, valData, tstData, glob, trn_batches, val_batches, tst_batches, mask = load_data(args)
+trnData, valData, tstData, glob, trn_batches, val_batches, tst_batches, mask, args = load_data(args)
 
 print("create model")
 #torch.manual_seed(6005537891671269197)
